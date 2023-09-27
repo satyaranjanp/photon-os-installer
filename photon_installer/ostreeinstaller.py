@@ -59,7 +59,7 @@ class OstreeInstaller(object):
             self.run([['ostree', 'pull', '--repo={}/ostree/repo'.format(self.photon_root), 'photon', repo_ref]], "Pulling OSTree remote repo")
 
 
-    def deploy_ostree(self, repo_url, repo_ref):
+    def deploy_ostree(self, repo_url, repo_ref, commit_id):
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'init-fs', self.photon_root]], "Initializing OSTree filesystem")
         self.pull_repo(repo_url, repo_ref)
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'os-init', 'photon']], "OSTree OS Initializing")
@@ -161,7 +161,7 @@ class OstreeInstaller(object):
             if self.install_config['ui']:
                 self.progress_bar.update_loading_message("Unpacking done")
 
-        self.deploy_ostree(self.ostree_repo_url, self.ostree_ref)
+        self.deploy_ostree(self.ostree_repo_url, self.ostree_ref, self.ostree_commit_id)
 
         commit_number = self.get_commit_number(self.ostree_ref)
         self.do_systemd_tmpfiles_commands(commit_number)
