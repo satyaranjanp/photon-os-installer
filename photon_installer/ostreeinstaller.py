@@ -36,6 +36,7 @@ class OstreeInstaller(object):
         if not self.default_repo:
             self.ostree_repo_url = self.install_config['ostree']['repo_url']
             self.ostree_ref = self.install_config['ostree']['repo_ref']
+            self.ostree_ref = self.install_config['ostree']['commit_id']
 
 
     def repo_read_conf(self):
@@ -62,7 +63,7 @@ class OstreeInstaller(object):
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'init-fs', self.photon_root]], "Initializing OSTree filesystem")
         self.pull_repo(repo_url, repo_ref)
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'os-init', 'photon']], "OSTree OS Initializing")
-        self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'deploy', '--os=photon', 'photon:{}'.format(repo_ref)]], "Deploying")
+        self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'deploy', '--os=photon', 'photon:{}'.format(commit_id)]], "Deploying")
 
 
     def do_systemd_tmpfiles_commands(self, commit_number):
