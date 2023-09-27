@@ -36,7 +36,7 @@ class OstreeInstaller(object):
         if not self.default_repo:
             self.ostree_repo_url = self.install_config['ostree']['repo_url']
             self.ostree_ref = self.install_config['ostree']['repo_ref']
-            self.ostree_ref = self.install_config['ostree']['commit_id']
+            self.ostree_commit_id = self.install_config['ostree']['commit_id']
 
 
     def repo_read_conf(self):
