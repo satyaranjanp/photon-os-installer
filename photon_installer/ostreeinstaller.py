@@ -66,7 +66,7 @@ class OstreeInstaller(object):
         self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'remote', 'list']], "Check 2")
         self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'log', 'photon:{}'.format(repo_ref)]], "Check 3")
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'os-init', 'photon']], "OSTree OS Initializing")
-        self.run([['rpm-ostree', 'deploy', commit_id]], "Deploying")
+        self.run([['rpm-ostree', '--sysroot={}'.format(self.photon_root), 'deploy', commit_id]], "Deploying")
 
 
     def do_systemd_tmpfiles_commands(self, commit_number):
