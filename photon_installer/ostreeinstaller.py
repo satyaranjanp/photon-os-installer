@@ -66,7 +66,7 @@ class OstreeInstaller(object):
         self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'remote', 'list']], "Check 2")
         self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'log', 'photon:{}'.format(repo_ref)]], "Check 3")
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'os-init', 'photon']], "OSTree OS Initializing")
-        self.run([['ostree', 'container', 'image', 'deploy', '--sysroot={}'.format(self.photon_root), '--stateroot=photon', '--imgref=ostree-unverified-image:docker://10.180.82.198:443/tinykube-v1.25.10_tinykube.1-1-52124b22dab:v1']], "Deploying")
+        self.run([['ostree', 'container', 'image', 'deploy', '--sysroot', 'self.photon_root', '--stateroot', 'photon', '--imgref', 'ostree-unverified-image:docker://10.180.82.198:443/tinykube-v1.25.10_tinykube.1-1-52124b22dab:v1']], "Deploying")
 
 
     def do_systemd_tmpfiles_commands(self, commit_number):
