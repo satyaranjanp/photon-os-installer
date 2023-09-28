@@ -64,7 +64,7 @@ class OstreeInstaller(object):
         self.pull_repo(repo_url, repo_ref)
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'status']], "Check 1")
         self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'remote', 'list']], "Check 2")
-        self.run([['ostree', 'log', 'photon:{}'.format(repo_ref)]], "Check 3")
+        self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'log', 'photon:{}'.format(repo_ref)]], "Check 3")
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'os-init', 'photon']], "OSTree OS Initializing")
         self.run([['rpm-ostree', 'deploy', commit_id]], "Deploying")
 
