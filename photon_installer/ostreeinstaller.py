@@ -56,7 +56,7 @@ class OstreeInstaller(object):
             cmd.append(['mkdir', '-p', '{}/ostree/repo/refs/heads'.format(self.photon_root)])
             self.run(cmd)
         else:
-            self.run([['ostree', 'pull', '--repo={}/ostree/repo'.format(self.photon_root), 'photon', repo_ref]], "Pulling OSTree remote repo")
+            self.run([['ostree', 'pull', '--repo={}/ostree/repo'.format(self.photon_root), 'photon', repo_ref, '--depth=-1']], "Pulling OSTree remote repo")
 
 
     def deploy_ostree(self, repo_url, repo_ref, commit_id):
@@ -64,6 +64,7 @@ class OstreeInstaller(object):
         self.pull_repo(repo_url, repo_ref)
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'status']], "Check 1")
         self.run([['ostree', '--repo={}/ostree/repo'.format(self.photon_root), 'remote', 'list']], "Check 2")
+        self.run([['ostree', 'log', 'photon:{}'.format(repo_ref)]], "Check 3")
         self.run([['ostree', 'admin', '--sysroot={}'.format(self.photon_root), 'os-init', 'photon']], "OSTree OS Initializing")
         self.run([['rpm-ostree', 'deploy', commit_id]], "Deploying")
 
